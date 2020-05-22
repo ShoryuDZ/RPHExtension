@@ -12,7 +12,7 @@ with open('sites.json') as json_file:
     sites = json.load(json_file)
 
 for video in videosTiles:
-    sites["siteList"].append(video.get("href"))
+    sites.append(video.get("href"))
 
 with open('sites.json', 'w') as json_file:
     json.dump(sites, json_file)
