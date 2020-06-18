@@ -1,18 +1,45 @@
 from bs4 import BeautifulSoup
-import urllib.request
+from urllib.request import Request, urlopen
 import json
 
-url = 'https://www.pornhub.com/playlist/154702881'
-page = urllib.request.urlopen(url)
-soup = BeautifulSoup(page, 'html.parser')
+# Opens any url, returns soup of page
+def openPage(url):
+    hdr = {'User-Agent': 'Chrome/70.0.3538.77'}
+    req = Request(url, headers=hdr)
+    page = urlopen(req)
+    return BeautifulSoup(page, "html.parser")
 
-videosTiles = soup.find_all("a", class_="fade")
+# Open Playlist Page
+playListSoup = openPage('https://www.pornhub.com/playlist/154702881') 
 
-with open('sites.json') as json_file:
-    sites = json.load(json_file)
+# Find Number of Videos in the playlist
+playlistTitle = playListSoup.find("div", class_="sectionWrapper clearfix").find("div", class_="usernameWrap clearfix").getText().split()
+playlistVideos = 0
+for word in playlistTitle:
+    if (word.isdigit()):
+        playlistVideos = int(word)
+        break
 
-for video in videosTiles:
-    sites.append(video.get("href"))
+# Create List of viewChunked URLs
+numberOfPages = 1
+if (playlistVideos % 50 == 0):
+    numberOfPages = playlistVideos/50
+else:
+    numberOfPages = playlistVideos/50 + 1
+pages = []
+i = 0
+while i < numberOfPages:
+    pages.append("https://www.pornhub.com/playlist/viewChunked?id=154702881&offset=" + str(i*50) +"&itemsPerPage=50")
+    i += 1
 
+# Save all video links from pages
+links = []
+for page in pages:
+    pageSoup = openPage(page)
+    videos = pageSoup.find_all("span", class_="title")
+    for video in videos:
+        links.append(video.find("a").get("href"))
+
+# Save .json
 with open('sites.json', 'w') as json_file:
-    json.dump(sites, json_file)
+    json.dump(links, json_file)
