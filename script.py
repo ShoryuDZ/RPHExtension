@@ -38,7 +38,9 @@ for page in pages:
     pageSoup = openPage(page)
     videos = pageSoup.find_all("span", class_="title")
     for video in videos:
-        links.append(video.find("a").get("href"))
+        fullLink = video.find("a").get("href")
+        linkParts = fullLink.split('&')
+        links.append(linkParts[0])
 
 # Save .json
 with open('sites.json', 'w') as json_file:
