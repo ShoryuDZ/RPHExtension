@@ -7,7 +7,6 @@ function clickHandler(e) {
 }
 
 function randomButton() {
-    getSites();
     var sites = [];
 
     var xmlhttp = new XMLHttpRequest();
@@ -19,15 +18,4 @@ function randomButton() {
     };
     xmlhttp.open("GET", "sites.json", true);
     xmlhttp.send();
-}
-
-function getSites() {
-    fetch('/randomsites')
-    .then(function (response) {
-        return response.json(); // But parse it as JSON this time
-    })
-    .then(function (json) {
-        console.log('GET response as JSON:');
-        console.log(json); // Here’s our JSON object
-    })
 }
