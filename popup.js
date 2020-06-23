@@ -12,10 +12,10 @@ function randomButton() {
     var xmlhttp = new XMLHttpRequest();
     xmlhttp.onreadystatechange = function() {
     if (this.readyState == 4 && this.status == 200) {
-        sites = JSON.parse(this.responseText);
-        chrome.extension.getBackgroundPage().randomButton(sites);
+        site = JSON.parse(this.responseText);
+        chrome.extension.getBackgroundPage().randomButton(site);
     }
     };
-    xmlhttp.open("GET", "sites.json", true);
+    xmlhttp.open("GET", "http://vd20.pythonanywhere.com/randomsite", true);
     xmlhttp.send();
 }
