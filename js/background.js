@@ -1,4 +1,4 @@
-var cycleTime = 12 * 60 * 1000;
+var cycleTime = 6 * 60 * 60 * 1000;
 setInterval(openAtRandom, cycleTime);
 
 function openAtRandom() {
