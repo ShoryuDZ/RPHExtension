@@ -1,3 +1,7 @@
+function getInstallTime() {
+    return localStorage.getItem("installTime");
+}
+
 var cycleTime = 6 * 60 * 60 * 1000;
 setInterval(openAtRandom, cycleTime);
 
@@ -20,3 +24,7 @@ function openRandomSite() {
     xmlhttp.send();
 }
 
+chrome.runtime.onInstalled.addListener(function(details){
+    var d = new Date();
+    localStorage.setItem("installTime", d.getTime());
+});

@@ -1,9 +1,10 @@
 body {
-    height: 85px;
+    height: 105px;
     width: 350px;
     background-color: black;
     font-family: Arial, Helvetica, sans-serif;
     font-weight: bold;
+    text-align: center;
 }
 
 div {
@@ -17,11 +18,18 @@ img {
     margin-left: 20px;
 }
 
-span {
+#title {
     color: orange;
     font-size: 27pt;
     text-align: center;
     margin-left: 10px;
+}
+
+#timer {
+    color: orange;
+    font-size: 9pt;
+    margin-top: 8px;
+    display: inline-block;
 }
 
 button {
@@ -31,7 +39,6 @@ button {
     border: none;
     text-align: center;
     font-size: 20pt;
-    position: absolute;
-    bottom: 10;
-    left: 30;
+    display: inline-block;
+    margin-top: 8px;
 }
